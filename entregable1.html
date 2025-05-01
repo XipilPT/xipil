@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entregables</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/Header.css">
+
+  <style>
+    @font-face {
+      font-family: 'Espinosa Nova Bold';
+      src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Espinosa Nova Regular';
+      src: url('fonts/EspinosaNovaPro-Regular.otf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Mukta Regular';
+      src: url('fonts/Mukta-Regular.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Mukta Extra Light';
+      src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
+    }
+
+    /* General */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Descripción */
+    .description-section h2 {
+      font-family: 'Espinosa Nova Bold';
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    /* Galería */
+    .gallery-section {
+      background-color: white;
+      padding: 60px 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-gap: 15px;
+      padding: 0 20px;
+    }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img,
+    .gallery-item:hover video {
+      transform: scale(1.05);
+    }
+
+    .gallery-gif img {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Footer */
+    .footer-bar {
+      background-color: #2f55a4;
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .footer-logo {
+      width: 50px;
+      height: auto;
+    }
+
+    .back-to-top {
+  background-color: white;
+  color: #2f55a4;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 20px; /* Bordes más redondeados */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .back-to-top:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(47, 85, 164, 0.5);
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- Contenido principal -->
+  <main class="description-section text-center p-4">
+    <h2>Mural</h2>
+
+    <section class="gallery-section container-fluid">
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="Assets/images/muraltest.png" alt="Foto 1">
+        </div>
+        <div class="gallery-item">
+          <video src="Assets/videos/ejemplo1.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="gallery-gif">
+          <img src="Assets/images/torito.gif" alt="Gif decorativo">
+        </div>
+        <!-- Puedes agregar más elementos aquí -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-bar">
+    <img src="Assets/images/logo.png" alt="Footer Logo" class="footer-logo">
+    <span>Xipil, derechos reservados</span>
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Subir</button>
+  </footer>
+
+  <!-- JavaScript para animaciones de galería -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll('.gallery-item img, .gallery-item video');
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            if (el.tagName === 'VIDEO') {
+              el.load();
+            }
+            el.style.opacity = '1';
+            obs.unobserve(el);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      items.forEach(item => {
+        item.style.opacity = '0';
+        observer.observe(item);
+      });
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Cargar el header -->
+  <script type="module">
+    import { loadHeader } from './JS/Header.js';
+    document.addEventListener('DOMContentLoaded', loadHeader);
+  </script>
+
+</body>
+</html>
