@@ -8,7 +8,7 @@ function createHeader() {
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <a class="navbar-brand" href="Index.html">
+                        <a class="navbar-brand" href="index.html">
                             <img src="Assets/images/logo.png" alt="Logo">
                         </a>
                     </div>
