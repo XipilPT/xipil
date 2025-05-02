@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
     
-<head>
-       <!-- Browser Color - Chrome, Firefox OS, Opera -->
-       <meta name="theme-color" content="#4b9b9c"> 
-       <!-- Browser Color - Windows Phone -->
-       <meta name="msapplication-navbutton-color" content="#4b9b9c"> 
-       <!-- Browser Color - iOS Safari -->
-       <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
+ <!-- Browser Color -->
+ <meta name="theme-color" content="#4b9b9c"> 
+ <meta name="msapplication-navbutton-color" content="#4b9b9c"> 
+ <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +16,7 @@
         .carousel-inner img {
             height: 400px;
             object-fit: cover;
-            opacity: 0.7;
+            opacity: 0.5;
         }
 
         .bottom-indicators {
@@ -110,7 +107,48 @@
         padding: 5px 10px;
         cursor: pointer;
     }
-      
+    .title-container {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.titulo-con-gifs {
+    font-size: 2.5rem;
+    font-family: 'Espinosa Nova Bold';
+    font-weight: 700;
+}
+
+.gif {
+    position: absolute;
+    width: 10vw;       /* Escala con el ancho de la pantalla */
+    max-width: 80px;   /* Tamaño máximo para no ser demasiado grandes */
+    height: auto;
+    z-index: 1;
+    pointer-events: none; /* Los gifs no interfieren con el texto */
+}
+
+.gif-1 {
+    top: -10px;
+    left: 9vw;
+    width: 70px;
+
+}
+
+.gif-2 {
+    top: 160px;
+    right: 1vw;
+    width: 70px;
+}
+
+.gif-3 {
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+
     </style>
 </head>
 <body>
@@ -159,22 +197,25 @@
 
     <!-- Sección contexto -->
     <div class="description-section text-center p-4">
-        <h2>San Sebastian Xoco</h2>
+        <div class="title-container position-relative d-inline-block">
+            <img src="Assets/images/gifs/cuete1.gif" alt="Decoración 1" class="gif gif-1">
+            <img src="Assets/images/gifs/cuete3.gif" alt="Decoración 2" class="gif gif-2">
+            <h2 class="titulo-con-gifs">San Sebastian Xoco</h2>
+        </div>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            San Sebastián Xoco es un pueblo originario ubicado en el centro-sur de la alcaldía Benito Juárez, en la Ciudad de México. Su historia se remonta a épocas prehispánicas, con vestigios arqueológicos que indican asentamientos teotihuacanos entre los años 225 y 550 d.C. Durante el periodo colonial, se construyó la capilla de San Sebastián Mártir en 1663, la cual sigue siendo un punto central en la vida comunitaria.
         </p>
         <!-- Imagen contexto -->
         <img src="Assets/images/CHINELOS2.png" alt="Imagen del Contexto Actual">
     </div>
 
     <div class="description-section text-center p-4">
+
+
+        
         <h2>Contexto Actual</h2>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            A pesar de la urbanización y el desarrollo de megaproyectos como la Torre Mitikah, la comunidad de Xoco ha mantenido vivas sus tradiciones, celebraciones y estructura social. Sin embargo, enfrenta desafíos significativos debido a la gentrificación y la transformación del paisaje urbano, lo que ha generado tensiones entre los habitantes y los desarrolladores inmobiliarios.
         </p>
         <!-- Imagen contexto -->
         <img src="Assets/images/Fotos editadas (finales)/XOCO.png" alt="Imagen del Contexto Actual">
@@ -201,4 +242,3 @@
     </script>
 </body>
 </html>
-
