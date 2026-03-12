@@ -76,17 +76,29 @@
 
 /* Título principal */
 h1 {
-    font-size: 2rem;
+    font-size:48px;
+    font-weight:700;
     font-family: 'Espinosa Nova Bold';
    
 }
 
 h2 {
-    font-size: 2rem;
+    font-size:32px;
     font-family: 'Espinosa Nova Bold';
     
    
 }
+
+h3{
+font-size:24px;
+}
+
+p{
+font-size:16px;
+line-height:1.6;
+}
+
+
 /* Columnas */
 .description-section p {
     font-family:'Mukta Extra Light';
@@ -119,3 +131,4 @@ a:hover {
         text-align: left;
     }
 }
+
