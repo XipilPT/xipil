@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-    
- <!-- Browser Color -->
- <meta name="theme-color" content="#4b9b9c"> 
- <meta name="msapplication-navbutton-color" content="#4b9b9c"> 
- <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
-    
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "rfi9ubk88a");
-</script>
-
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xoco</title>
+    <meta name="theme-color" content="#4b9b9c">
+    <meta name="msapplication-navbutton-color" content="#4b9b9c">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
+    <title>Xipil | Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="CSS/Header.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Espinosa Nova Bold';
+            src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Espinosa Nova Regular';
+            src: url('fonts/EspinosaNovaPro-Regular.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Mukta Regular';
+            src: url('fonts/Mukta-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Mukta Extra Light';
+            src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
+        }
+
+        body {
+            background: linear-gradient(180deg, #f8f6f0 0%, #ffffff 24%, #fbfaf6 100%);
+            color: #142033;
+            font-family: 'Mukta Regular';
+        }
+
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #carouselExampleIndicators {
+            margin: 0 auto 3.5rem;
+        }
+
         .carousel-inner img {
             height: 400px;
             object-fit: cover;
             opacity: 0.5;
-        }
-
-        .bottom-indicators {
-            position: relative;
-            bottom: -30px;
-            text-align: center;
-        }
-
-        .bottom-indicators button {
-            background-color: gray;
         }
 
         .carousel-logo {
@@ -43,131 +64,213 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
+            width: auto;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
         }
-           
+
         .carousel-logo img {
             height: 100px;
             width: auto;
-            opacity: 1.0;
+            opacity: 1;
         }
 
-
-        @font-face {
-    font-family: 'Espinosa Nova Bold';
-    src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Espinosa Nova Regular';
-    src: url('fonts/EspinosaNovaPro-Regular.otf') format('truetype');
-
-  }
-
-  @font-face {
-    font-family: 'Mukta Regular';
-    src: url('fonts/Mukta-Regular.ttf') format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Mukta Extra Light';
-    src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
-}
-
         .description-section {
-            background-color: #ffffff;
-            color: #000000;
-            padding: 40px 0;
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto 2.5rem;
+            padding: 3.5rem clamp(1.4rem, 3vw, 3.2rem);
             text-align: center;
-            font-family: 'Espinosa Nova Bold';
-         
+            background: rgba(255, 255, 255, 0.92);
+            color: #142033;
+            border: 1px solid rgba(47, 85, 164, 0.08);
+            border-radius: 30px;
+            box-shadow: 0 20px 44px rgba(28, 46, 84, 0.08);
         }
 
         .description-section h2 {
             font-family: 'Espinosa Nova Bold';
-            font-size: 4rem;
+            font-size: clamp(2.4rem, 3vw, 4rem);
             font-weight: 700;
-            margin-bottom: 15px;
+            line-height: 1.04;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.2rem;
         }
 
-
+        .description-section p {
+            width: min(74ch, 100%);
+            margin: 0 auto 1.7rem;
+            font-family: 'Mukta Extra Light';
+            font-size: clamp(1.04rem, 1vw + 0.7rem, 1.22rem);
+            line-height: 1.9;
+            text-align: left;
+            color: #263248;
+        }
 
         .description-section img {
-            border-radius: 8px;
+            border-radius: 22px;
             width: 100%;
+            max-width: 960px;
+            margin: 1.6rem auto 0;
+            box-shadow: 0 18px 36px rgba(24, 40, 70, 0.14);
         }
 
         .footer-bar {
-        background-color: #2f55a4;
-        color: white;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .footer-logo {
-        width: 50px;
-        height: auto;
-    }
-    .back-to-top {
-        background-color: white;
-        color: #2f55a4;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-    .title-container {
-    display: inline-block;
-    position: relative;
-    margin-bottom: 20px;
-}
+            background: linear-gradient(135deg, #2f55a4, #27498e);
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 2rem;
+        }
 
-.titulo-con-gifs {
-    font-size: 2.5rem;
-    font-family: 'Espinosa Nova Bold';
-    font-weight: 700;
-}
+        .footer-logo {
+            width: 50px;
+            height: auto;
+        }
 
-.gif {
-    position: absolute;
-    width: 10vw;       /* Escala con el ancho de la pantalla */
-    max-width: 80px;   /* Tamaño máximo para no ser demasiado grandes */
-    height: auto;
-    z-index: 1;
-    pointer-events: none; /* Los gifs no interfieren con el texto */
-}
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #fff5d6, #ffffff);
+            color: #23417d;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            padding: 10px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: 'Mukta Regular';
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            box-shadow: 0 10px 24px rgba(12, 30, 74, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
 
-.gif-1 {
-    top: -10px;
-    left: 9vw;
-    width: 70px;
+        .back-to-top::before {
+            content: "\2191";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #2f55a4;
+            color: #ffffff;
+            font-size: 1rem;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
 
-}
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(12, 30, 74, 0.24);
+            background: linear-gradient(135deg, #ffffff, #f7e8a6);
+        }
 
-.gif-2 {
-    top: 160px;
-    right: 1vw;
-    width: 70px;
-}
+        .title-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 24px;
+        }
 
-.gif-3 {
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .titulo-con-gifs {
+            font-size: clamp(2.3rem, 3vw, 3.5rem);
+            font-family: 'Espinosa Nova Bold';
+            font-weight: 700;
+        }
 
+        .gif {
+            position: absolute;
+            width: 10vw;
+            max-width: 80px;
+            height: auto;
+            z-index: 1;
+            pointer-events: none;
+        }
 
+        .gif-1 {
+            top: -6px;
+            left: 3.5rem;
+            width: 70px;
+        }
 
+        .gif-2 {
+            top: 120px;
+            right: -0.8rem;
+            width: 70px;
+        }
+
+        @media (max-width: 992px) {
+            .carousel-inner img {
+                height: 400px;
+            }
+
+            .description-section {
+                width: calc(100% - 32px);
+                padding: 2.6rem 1.4rem;
+            }
+
+            .description-section p {
+                width: min(66ch, 100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            #carouselExampleIndicators {
+                margin-bottom: 2rem;
+            }
+
+            .carousel-inner img {
+                height: 320px;
+            }
+
+            .carousel-logo {
+                width: auto;
+                padding: 0;
+            }
+
+            .description-section {
+                width: calc(100% - 24px);
+                margin-bottom: 1.4rem;
+                border-radius: 24px;
+            }
+
+            .description-section p {
+                font-size: 1rem;
+                line-height: 1.75;
+            }
+
+            .footer-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .gif {
+                max-width: 56px;
+            }
+
+            .gif-1 {
+                left: 1.2rem;
+                top: -12px;
+            }
+
+            .gif-2 {
+                top: 86px;
+                right: -0.2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <div id="header-container"></div>
 
-    <!-- Carrusel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <!-- Logo carrusel -->
         <div class="carousel-logo">
-            <img src="Assets/images/logoxoco.png" alt="Logo" />
+            <img src="Assets/images/logoxoco.png" alt="Logo Xipil">
         </div>
 
         <div class="carousel-inner">
@@ -181,8 +284,7 @@
                 <img src="Assets/images/3.png" class="d-block w-100" alt="Tercera imagen">
             </div>
         </div>
-        
-        <!-- Controles carrusel -->
+
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
@@ -193,60 +295,82 @@
         </button>
     </div>
 
-    <!-- Sección Xoco -->
-    <div class="description-section text-center p-4">
+    <section class="description-section text-center p-4 reveal-section">
         <h2>Xipil</h2>
         <p>
-            XIPIL es un proyecto que busca integrar las historias, prácticas y símbolos  del pueblo de San Sebastián Xoco, proponiendo alternativas que documenten y transformen el papel de los signos culturales en la resistencia, preservacion  y revalorización de su identidad y patrimonio cultural.
+            XIPIL es un proyecto que busca integrar las historias, practicas y simbolos del pueblo de San Sebastian Xoco, proponiendo alternativas que documenten y transformen el papel de los signos culturales en la resistencia, preservacion y revalorizacion de su identidad y patrimonio cultural.
         </p>
-        <!-- Imagen seccion -->
         <img src="Assets/images/fotonueva1.png" alt="Imagen de San Sebastian Xoco">
-    </div>
+    </section>
 
-    <!-- Sección contexto -->
-    <div class="description-section text-center p-4">
+    <section class="description-section text-center p-4 reveal-section">
         <div class="title-container position-relative d-inline-block">
-            <img src="Assets/images/gifs/Cuete1.gif" alt="Decoración 1" class="gif gif-1">
-            <img src="Assets/images/gifs/cuete3.gif" alt="Decoración 2" class="gif gif-2">
+ 
             <h2 class="titulo-con-gifs">San Sebastian Xoco</h2>
         </div>
         <p>
-            San Sebastián Xoco es un pueblo originario ubicado en el centro-sur de la alcaldía Benito Juárez, en la Ciudad de México. Su historia se remonta a épocas prehispánicas, con vestigios arqueológicos que indican asentamientos teotihuacanos entre los años 225 y 550 d.C. Durante el periodo colonial, se construyó la capilla de San Sebastián Mártir en 1663, la cual sigue siendo un punto central en la vida comunitaria.
+            San Sebastian Xoco es un pueblo originario ubicado en el centro-sur de la alcaldia Benito Juarez, en la Ciudad de Mexico. Su historia se remonta a epocas prehispanicas, con vestigios arqueologicos que indican asentamientos teotihuacanos entre los anos 225 y 550 d.C. Durante el periodo colonial, se construyo la capilla de San Sebastian Martir en 1663, la cual sigue siendo un punto central en la vida comunitaria.
         </p>
-        <!-- Imagen contexto -->
-        <img src="Assets/images/CHINELOS2.png" alt="Imagen del Contexto Actual">
-    </div>
+        <img src="Assets/images/CHINELOS2.png" alt="Imagen de San Sebastian Xoco">
+    </section>
 
-    <div class="description-section text-center p-4">
-
-
-        
+    <section class="description-section text-center p-4 reveal-section">
         <h2>Contexto Actual</h2>
         <p>
-            A pesar de la urbanización y el desarrollo de megaproyectos como la Torre Mitikah, la comunidad de Xoco ha mantenido vivas sus tradiciones, celebraciones y estructura social. Sin embargo, enfrenta desafíos significativos debido a la gentrificación y la transformación del paisaje urbano, lo que ha generado tensiones entre los habitantes y los desarrolladores inmobiliarios.
+            A pesar de la urbanizacion y el desarrollo de megaproyectos como la Torre Mitikah, la comunidad de Xoco ha mantenido vivas sus tradiciones, celebraciones y estructura social. Sin embargo, enfrenta desafios significativos debido a la gentrificacion y la transformacion del paisaje urbano, lo que ha generado tensiones entre los habitantes y los desarrolladores inmobiliarios.
         </p>
-        <!-- Imagen contexto -->
-        <img src="Assets/images/Fotos editadas (finales)/XOCO.png" alt="Imagen del Contexto Actual">
-    </div>
+        <img src="Assets/images/Fotos editadas (finales)/XOCO.png" alt="Imagen del contexto actual">
+    </section>
 
-    <!-- pie de pagina -->
     <footer class="footer-bar">
         <img src="Assets/images/logo.png" alt="Footer Logo" class="footer-logo">
         <span>Xipil, derechos reservados</span>
-        <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Subir</button>
+        <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Volver arriba">Volver arriba</button>
     </footer>
 
-    <!-- contenido -->
-    <div class="content">
-       
-         
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script type="module">
         import { loadHeader } from './JS/Header.js';
         document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "rfi9ubk88a");
+    </script>
+    <script>
+        const revealSections = document.querySelectorAll('.reveal-section');
+
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.18 });
+
+            revealSections.forEach((section) => revealObserver.observe(section));
+        } else {
+            revealSections.forEach((section) => section.classList.add('is-visible'));
+        }
+
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+
+            if (!navbar) {
+                return;
+            }
+
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
     </script>
 </body>
 </html>
