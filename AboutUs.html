@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b9b9c">
+    <meta name="msapplication-navbutton-color" content="#4b9b9c">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
+    <title>Xipil | Quienes Somos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/Header.css">
+
+    <style>
+        @font-face {
+            font-family: 'Espinosa Nova Bold';
+            src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Espinosa Nova Regular';
+            src: url('fonts/EspinosaNovaPro-Regular.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Mukta Regular';
+            src: url('fonts/Mukta-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Mukta Extra Light';
+            src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
+        }
+
+        body {
+            background: linear-gradient(180deg, #f8f6f0 0%, #ffffff 24%, #fbfaf6 100%);
+            color: #142033;
+            font-family: 'Mukta Regular';
+        }
+
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-image-wrap {
+            width: min(1280px, calc(100% - 32px));
+            margin: 0 auto 2.5rem;
+            border-radius: 0 0 34px 34px;
+            overflow: hidden;
+            box-shadow: 0 22px 50px rgba(21, 41, 77, 0.16);
+        }
+
+        .header-image {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .description-section,
+        .meaning-section,
+        .imagotipo-shell {
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto 2.5rem;
+            padding: 3.5rem clamp(1.4rem, 3vw, 3.2rem);
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(47, 85, 164, 0.08);
+            border-radius: 30px;
+            box-shadow: 0 20px 44px rgba(28, 46, 84, 0.08);
+            text-align: center;
+        }
+
+        .description-section h2,
+        .meaning-title {
+            font-family: 'Espinosa Nova Bold';
+            font-size: clamp(2.4rem, 3vw, 4rem);
+            font-weight: 700;
+            line-height: 1.04;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.2rem;
+        }
+
+        .description-section p,
+        .meaning-text,
+        .mision p,
+        .vision p,
+        .imagotipo-text p {
+            width: min(74ch, 100%);
+            margin: 0 auto 1.7rem;
+            font-family: 'Mukta Extra Light';
+            font-size: clamp(1.04rem, 1vw + 0.7rem, 1.22rem);
+            line-height: 1.9;
+            text-align: left;
+            color: #263248;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2.5rem 0 1rem;
+        }
+
+        .logo-container img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+        }
+
+        .mision-vision {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .mision,
+        .vision {
+            padding: 2rem;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(248, 250, 255, 0.96), rgba(239, 244, 252, 0.96));
+            border: 1px solid rgba(47, 85, 164, 0.08);
+        }
+
+        .mision h3,
+        .vision h3 {
+            font-family: 'Espinosa Nova Bold';
+            font-size: clamp(2rem, 2.4vw, 3rem);
+            color: #17305e;
+            margin-bottom: 1rem;
+        }
+
+        .mision p,
+        .vision p {
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .section-image-wrap {
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto 2.5rem;
+        }
+
+        .section-image {
+            width: 100%;
+            border-radius: 28px;
+            display: block;
+            box-shadow: 0 18px 36px rgba(24, 40, 70, 0.14);
+        }
+
+        .meaning-section {
+            text-align: center;
+        }
+
+        .meaning-text {
+            margin-bottom: 0;
+        }
+
+        .logotipo-section {
+            background-color: #4A9B9B;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .logotipo-section h2 {
+            font-family: 'Espinosa Nova Bold';
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .logotipo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .logotipo-container img {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            margin-top: 60px;
+            margin-bottom: 18px;
+        }
+
+        .imagotipo-shell {
+            width: 100%;
+            margin: 0;
+            padding: 2.8rem 0 3.2rem;
+            background-color: #4A9B9B;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .imagotipo-section {
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto;
+            text-align: center;
+            padding: 0;
+            background-color: transparent;
+            color: white;
+        }
+
+        .imagotipo-content {
+            display: grid;
+            grid-template-columns: 300px 220px minmax(320px, 1fr);
+            align-items: stretch;
+            gap: 34px;
+            text-align: left;
+        }
+
+        .imagotipo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 420px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px) scale(0.92);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+
+        .imagotipo-container::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 55%, transparent 72%);
+            z-index: 0;
+        }
+
+        .imagotipo-container img {
+            width: 240px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 24px 34px rgba(19, 46, 77, 0.24));
+            position: relative;
+            z-index: 1;
+        }
+
+        .imagotipo-hotspots {
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 14px;
+            min-height: 420px;
+            position: relative;
+            padding-left: 1rem;
+            opacity: 0;
+            transform: translateY(46px);
+            transition: opacity 0.75s ease 0.12s, transform 0.75s ease 0.12s;
+        }
+
+        .imagotipo-hotspots::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            top: 16px;
+            bottom: 16px;
+            width: 1px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.22));
+        }
+
+        .imagotipo-hotspot {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0.7rem 0 0.7rem 1.6rem;
+            border: none;
+            background: transparent;
+            color: white;
+            font-family: 'Espinosa Nova Bold';
+            font-size: 1.18rem;
+            line-height: 1.2;
+            text-align: left;
+            transition: transform 0.22s ease, opacity 0.22s ease, letter-spacing 0.22s ease;
+            cursor: pointer;
+            opacity: 0.72;
+            position: relative;
+        }
+
+        .imagotipo-hotspot::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.38);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%);
+            transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .imagotipo-hotspot:hover,
+        .imagotipo-hotspot:focus-visible,
+        .imagotipo-hotspot.is-active {
+            transform: translateX(8px);
+            opacity: 1;
+            letter-spacing: 0.01em;
+            outline: none;
+        }
+
+        .imagotipo-hotspot:hover::before,
+        .imagotipo-hotspot:focus-visible::before,
+        .imagotipo-hotspot.is-active::before {
+            transform: translate(-50%, -50%) scale(1.24);
+            background: #fff6da;
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.12);
+        }
+
+        .imagotipo-panel {
+            min-height: 420px;
+            padding: 1rem 0 1rem 1.25rem;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(56px);
+            transition: opacity 0.75s ease 0.24s, transform 0.75s ease 0.24s;
+        }
+
+        .imagotipo-panel::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 16px;
+            bottom: 16px;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.48), transparent);
+        }
+
+        .imagotipo-panel-title {
+            font-family: 'Espinosa Nova Bold';
+            font-size: 2.35rem;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            color: white;
+            padding-left: 1.35rem;
+        }
+
+        .imagotipo-panel-copy {
+            width: 100%;
+            margin: 0;
+            color: white;
+            font-family: 'Mukta Extra Light';
+            font-size: 1.24rem;
+            line-height: 1.9;
+            padding-left: 1.35rem;
+            max-width: 32ch;
+        }
+
+        .imagotipo-section.is-visible .imagotipo-container,
+        .imagotipo-section.is-visible .imagotipo-hotspots,
+        .imagotipo-section.is-visible .imagotipo-panel {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .footer-bar {
+            background: linear-gradient(135deg, #2f55a4, #27498e);
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 2rem;
+        }
+
+        .footer-logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #fff5d6, #ffffff);
+            color: #23417d;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            padding: 10px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: 'Mukta Regular';
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            box-shadow: 0 10px 24px rgba(12, 30, 74, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        .back-to-top::before {
+            content: "\2191";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #2f55a4;
+            color: #ffffff;
+            font-size: 1rem;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(12, 30, 74, 0.24);
+            background: linear-gradient(135deg, #ffffff, #f7e8a6);
+        }
+
+        @media (max-width: 992px) {
+            .header-image {
+                height: 340px;
+            }
+
+            .description-section,
+            .meaning-section {
+                width: calc(100% - 32px);
+                padding: 2.6rem 1.4rem;
+            }
+
+            .mision-vision {
+                grid-template-columns: 1fr;
+            }
+
+            .imagotipo-content {
+                grid-template-columns: 1fr;
+            }
+
+            .imagotipo-container,
+            .imagotipo-hotspots,
+            .imagotipo-panel {
+                min-height: auto;
+            }
+
+            .imagotipo-hotspots {
+                grid-template-rows: repeat(4, minmax(72px, auto));
+            }
+
+            .imagotipo-container,
+            .imagotipo-hotspots,
+            .imagotipo-panel {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-image-wrap {
+                width: calc(100% - 24px);
+                border-radius: 0 0 24px 24px;
+            }
+
+            .header-image {
+                height: 260px;
+            }
+
+            .description-section,
+            .meaning-section,
+            .section-image-wrap {
+                width: calc(100% - 24px);
+                margin-bottom: 1.4rem;
+                border-radius: 24px;
+            }
+
+            .imagotipo-shell {
+                padding: 2rem 0 2.4rem;
+            }
+
+            .imagotipo-section {
+                width: calc(100% - 24px);
+            }
+
+            .description-section p,
+            .meaning-text,
+            .mision p,
+            .vision p,
+            .imagotipo-panel-copy {
+                font-size: 1rem;
+                line-height: 1.75;
+            }
+
+            .imagotipo-content {
+                gap: 18px;
+            }
+
+            .imagotipo-hotspot {
+                font-size: 1rem;
+            }
+
+            .imagotipo-panel {
+                padding: 0.35rem 0 0 0;
+            }
+
+            .imagotipo-panel-title {
+                font-size: 1.6rem;
+            }
+
+            .imagotipo-panel-title,
+            .imagotipo-panel-copy {
+                padding-left: 0.9rem;
+                max-width: none;
+            }
+
+            .logotipo-section h2 {
+                font-size: 2.7rem;
+            }
+
+            .footer-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <div class="hero-image-wrap">
+        <img src="Assets/images/Xipil.png" alt="Imagen de encabezado" class="header-image">
+    </div>
+
+    <section class="description-section reveal-section">
+        <h2>¿Quiénes somos?</h2>
+        <p class="text-center">
+            XIPIL es un proyecto que busca integrar las historias, prácticas y símbolos del pueblo de San Sebastián Xoco, proponiendo alternativas que documenten y transformen el papel de los signos culturales en la resistencia, preservación y revalorización de su identidad y patrimonio cultural.
+        </p>
+
+        <div class="logo-container">
+            <img src="Assets/images/LogoCompleto.png" alt="XIPIL Logo">
+        </div>
+
+        <div class="mision-vision">
+            <div class="mision">
+                <h3>Misión</h3>
+                <p>
+                    Documentar, preservar y revitalizar las historias, prácticas y símbolos del pueblo de San Sebastián Xoco, generando alternativas creativas que fortalezcan la identidad comunitaria y promuevan la resistencia cultural frente a los procesos de transformación urbana y social.
+                </p>
+            </div>
+            <div class="vision">
+                <h3>Visión</h3>
+                <p>
+                    Aspiramos a que XIPIL sea un referente de innovación cultural comunitaria, en donde las expresiones simbólicas y las memorias locales se conviertan en herramientas vivas para la defensa, valorización y transmisión del patrimonio de San Sebastián Xoco, tanto en su territorio como en los imaginarios colectivos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-image-wrap reveal-section">
+        <img src="Assets/images/quienessomos.png" alt="Imagen complementaria" class="section-image">
+    </div>
+
+    <section class="meaning-section reveal-section">
+        <h2 class="meaning-title">¿Qué significa Xipil?</h2>
+        <p class="meaning-text">
+            Xipil proviene del náhuatl y significa "raíz desnuda"; refleja, en esencia, un retorno a las raíces culturales y comunitarias del pueblo de San Sebastián Xoco. "Raíz desnuda" simboliza en este proyecto la conexión con los orígenes, con lo esencial, y con aquello que ha sido expuesto o vulnerado, como lo es la identidad cultural del pueblo ante la amenaza de la gentrificación; es una evocación a la resistencia y a mantener viva la memoria colectiva.
+        </p>
+    </section>
+
+    <div class="logotipo-section">
+        <h2>Nuestro logotipo</h2>
+        <div class="logotipo-content">
+            <div class="logotipo-container">
+                <div class="logotipo-text">
+                    
+                </div>
+                <img src="Assets/images/XipilBlanco.png" alt="Imagotipo XIPIL">
+                <div class="logotipo-text">
+                    
+                </div>
+            </div>
+            <p>Formas puntiagudas simulando las espinas del árbol de tejocote.</p>
+        </div>
+    </div>
+
+    <section class="imagotipo-shell">
+        <div class="imagotipo-section">
+            <div class="imagotipo-content">
+                <div class="imagotipo-container">
+                    <img src="Assets/images/LogoXocoBlanco.png" alt="Imagotipo XIPIL">
+                </div>
+                <div class="imagotipo-hotspots" aria-label="Elementos del logo">
+                    <button class="imagotipo-hotspot is-active" type="button" data-title="Patrón simétrico" data-copy="El patrón simétrico da equilibrio visual al logotipo y refuerza la idea de una identidad que se sostiene desde la memoria compartida, la repetición y la permanencia comunitaria.">
+                        Patrón simétrico
+                    </button>
+                    <button class="imagotipo-hotspot" type="button" data-title="X como símbolo identitario" data-copy="La X funciona como una referencia directa a Xoco. Su presencia vuelve reconocible al signo y lo conecta de inmediato con el territorio, el nombre del pueblo y su fuerza simbólica.">
+                        X como símbolo identitario
+                    </button>
+                    <button class="imagotipo-hotspot" type="button" data-title="Formas orgánicas" data-copy="Las formas orgánicas y abiertas se alejan de la rigidez para expresar comunidad, movimiento y vínculos vivos. El logo sugiere una identidad flexible que permanece en diálogo con sus raíces.">
+                        Formas orgánicas
+                    </button>
+                    <button class="imagotipo-hotspot" type="button" data-title="Sátira" data-copy="La propuesta también nace como una sátira frente a Mitikah. La ruptura con una geometría cerrada funciona como una respuesta crítica al aislamiento y afirma una postura de apertura, memoria y resistencia cultural.">
+                        Sátira
+                    </button>
+                </div>
+                <div class="imagotipo-panel" aria-live="polite">
+                    <h3 class="imagotipo-panel-title">Patrón simétrico</h3>
+                    <p class="imagotipo-panel-copy">
+                        El patrón simétrico da equilibrio visual al logotipo y refuerza la idea de una identidad que se sostiene desde la memoria compartida, la repetición y la permanencia comunitaria.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-bar">
+        <img src="Assets/images/logo.png" alt="Footer Logo" class="footer-logo">
+        <span>Xipil, derechos reservados</span>
+        <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Volver arriba">Volver arriba</button>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { loadHeader } from './JS/Header.js';
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+    <script>
+        const imagotipoHotspots = document.querySelectorAll('.imagotipo-hotspot');
+        const imagotipoPanelTitle = document.querySelector('.imagotipo-panel-title');
+        const imagotipoPanelCopy = document.querySelector('.imagotipo-panel-copy');
+
+        imagotipoHotspots.forEach((hotspot) => {
+            const updatePanel = () => {
+                imagotipoHotspots.forEach((item) => item.classList.remove('is-active'));
+                hotspot.classList.add('is-active');
+                imagotipoPanelTitle.textContent = hotspot.dataset.title;
+                imagotipoPanelCopy.textContent = hotspot.dataset.copy;
+            };
+
+            hotspot.addEventListener('mouseenter', updatePanel);
+            hotspot.addEventListener('focus', updatePanel);
+            hotspot.addEventListener('click', updatePanel);
+        });
+
+        const imagotipoSection = document.querySelector('.imagotipo-section');
+
+        if (imagotipoSection && 'IntersectionObserver' in window) {
+            const imagotipoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        imagotipoSection.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.28 });
+
+            imagotipoObserver.observe(imagotipoSection);
+        } else if (imagotipoSection) {
+            imagotipoSection.classList.add('is-visible');
+        }
+
+        const revealSections = document.querySelectorAll('.reveal-section:not(.imagotipo-shell)');
+
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.18 });
+
+            revealSections.forEach((section) => revealObserver.observe(section));
+        } else {
+            revealSections.forEach((section) => section.classList.add('is-visible'));
+        }
+
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+
+            if (!navbar) {
+                return;
+            }
+
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+</body>
+</html>

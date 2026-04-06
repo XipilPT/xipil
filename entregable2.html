@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4b9b9c">
+  <meta name="msapplication-navbutton-color" content="#4b9b9c">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
+  <title>Xipil | Documental</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/Header.css">
+
+  <style>
+    @font-face {
+      font-family: 'Espinosa Nova Bold';
+      src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Mukta Regular';
+      src: url('fonts/Mukta-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Mukta Extra Light';
+      src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #f8f6f0 0%, #ffffff 24%, #fbfaf6 100%);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #142033;
+    }
+
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .documental-hero {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto 2rem;
+      padding: 3rem clamp(1.4rem, 3vw, 3rem);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(47, 85, 164, 0.08);
+      border-radius: 30px;
+      box-shadow: 0 20px 44px rgba(28, 46, 84, 0.08);
+    }
+
+    .title-documental {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 1.25rem;
+    }
+
+    .documental-title {
+      font-family: 'Espinosa Nova Bold';
+      font-size: clamp(2.5rem, 3.4vw, 4.4rem);
+      margin: 0;
+      color: #000000;
+    }
+
+    .gif {
+      width: 62px;
+      height: auto;
+    }
+
+    .documental-intro p {
+      width: min(70ch, 100%);
+      margin: 0 auto 1.5rem;
+      font-family: 'Mukta Extra Light';
+      font-size: clamp(1.04rem, 1vw + 0.7rem, 1.16rem);
+      line-height: 1.95;
+      color: #263248;
+      text-align: center;
+      padding: 0.4rem 1.2rem 0;
+      position: relative;
+    }
+
+    .documental-intro p::before {
+      content: "";
+      display: block;
+      width: 92px;
+      height: 3px;
+      margin: 0 auto 1.2rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4b9b9c, #2f55a4);
+    }
+
+    .back-archivo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.25rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2f55a4, #4b9b9c);
+      color: white !important;
+      text-decoration: none;
+      font-family: 'Mukta Regular';
+      font-size: 0.98rem;
+      letter-spacing: 0.04em;
+      box-shadow: 0 14px 26px rgba(31, 58, 109, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .back-archivo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(31, 58, 109, 0.24);
+    }
+
+    .video-showcase {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto 2.6rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.6fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .video-panel {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 26px 50px rgba(24, 40, 70, 0.18);
+      background: #d9e1eb;
+      min-height: 100%;
+    }
+
+    .video-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(17, 27, 44, 0.1), rgba(17, 27, 44, 0.28));
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-meta {
+      padding: 1.3rem 1.4rem 1.5rem;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 253, 0.96));
+    }
+
+    .video-meta h3 {
+      font-family: 'Espinosa Nova Bold';
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      color: #17305e;
+    }
+
+    .video-meta p {
+      margin: 0;
+      font-family: 'Mukta Extra Light';
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #30415f;
+    }
+
+    .video-side {
+      display: grid;
+      gap: 14px;
+    }
+
+    .side-card {
+      padding: 1.3rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(47, 85, 164, 0.08);
+      box-shadow: 0 18px 34px rgba(24, 40, 70, 0.1);
+    }
+
+    .side-card h4 {
+      margin: 0 0 0.7rem;
+      font-family: 'Espinosa Nova Bold';
+      font-size: 1.35rem;
+      color: #000000;
+    }
+
+    .side-card p {
+      margin: 0;
+      font-family: 'Mukta Extra Light';
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #31415d;
+    }
+
+    .side-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .side-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(75, 155, 156, 0.12);
+      color: #2f55a4;
+      font-family: 'Mukta Regular';
+      font-size: 0.92rem;
+    }
+
+    .documental-gallery {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto 2.6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .gallery-column {
+      display: grid;
+      gap: 14px;
+    }
+
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: 0 18px 36px rgba(24, 40, 70, 0.14);
+      background: #d7dfea;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .gallery-card.tall {
+      min-height: 420px;
+    }
+
+    .gallery-card.medium {
+      min-height: 250px;
+    }
+
+    .gallery-card.small {
+      min-height: 240px;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .gallery-card:hover {
+      transform: scale(1.04);
+      box-shadow: 0 26px 44px rgba(24, 40, 70, 0.2);
+      z-index: 2;
+    }
+
+    .gallery-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-stack {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .footer-bar {
+      background: linear-gradient(135deg, #2f55a4, #27498e);
+      color: white;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      width: 50px;
+      height: auto;
+    }
+
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #fff5d6, #ffffff);
+      color: #23417d;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: 'Mukta Regular';
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 24px rgba(12, 30, 74, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .back-to-top::before {
+      content: "\2191";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #2f55a4;
+      color: #ffffff;
+      font-size: 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px rgba(12, 30, 74, 0.24);
+      background: linear-gradient(135deg, #ffffff, #f7e8a6);
+    }
+
+    @media (max-width: 992px) {
+      .documental-hero {
+        width: calc(100% - 32px);
+        padding: 2.5rem 1.4rem;
+      }
+
+      .video-showcase,
+      .documental-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-card.tall {
+        min-height: 340px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .documental-hero,
+      .video-showcase,
+      .documental-gallery {
+        width: calc(100% - 24px);
+      }
+
+      .gif {
+        width: 48px;
+      }
+
+      .gallery-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-card.medium,
+      .gallery-card.small {
+        min-height: 220px;
+      }
+
+      .footer-bar {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <main>
+    <section class="documental-hero reveal-section">
+      <div class="title-documental">
+        <img src="Assets/images/gifs/CAMARA.gif" alt="Decoración izquierda" class="gif gif-left">
+        <h2 class="documental-title">Documental</h2>
+        <img src="Assets/images/gifs/microfono.gif" alt="Decoración derecha" class="gif gif-right">
+      </div>
+
+      <div class="documental-intro">
+        <p>
+          Este documental busca capturar en video las historias y testimonios de los habitantes, junto con imágenes que ayuden a representar sus memorias y a visibilizar su lucha ante una audiencia más amplia.
+        </p>
+      </div>
+
+      <a href="Archivo.html" class="back-archivo">Volver a Entregables</a>
+    </section>
+
+    <section class="video-showcase reveal-section">
+      <div class="video-panel">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/JR2X8tDurto"
+                  title="Documental"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-meta">
+          <h3>Tierra Agria</h3>
+          <p>Un corto-documental de Xipil que articula memoria, territorio y resistencia desde la voz de la comunidad.</p>
+        </div>
+      </div>
+
+      <div class="video-side">
+        <div class="side-card">
+          <h4>Sobre la pieza</h4>
+          <p>
+            El video funciona como un dispositivo de escucha y registro. Reúne imágenes, voces y presencia territorial para dejar constancia de una experiencia colectiva en transformación.
+          </p>
+        </div>
+        <div class="side-card">
+          <h4>Claves del documental</h4>
+          <div class="side-chip-group">
+            <span class="side-chip">Testimonios</span>
+            <span class="side-chip">Memoria local</span>
+            <span class="side-chip">Resistencia</span>
+            <span class="side-chip">Registro audiovisual</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="documental-gallery reveal-section">
+      <div class="gallery-column">
+        <div class="gallery-card tall">
+          <img src="Assets/images/documental8.png" alt="Fotograma principal del documental">
+        </div>
+        <div class="gallery-stack">
+          <div class="gallery-card small">
+            <img src="Assets/images/documental4.png" alt="Fotograma documental 1">
+          </div>
+          <div class="gallery-card small">
+            <img src="Assets/images/documental7.png" alt="Fotograma documental 2">
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-column">
+        <div class="gallery-card medium">
+          <img src="Assets/images/documental2.png" alt="Fotograma documental 3">
+        </div>
+        <div class="gallery-card medium">
+          <img src="Assets/images/documental5.png" alt="Fotograma documental 4">
+        </div>
+        <div class="gallery-stack">
+          <div class="gallery-card small">
+            <img src="Assets/images/documental6.png" alt="Fotograma documental 5">
+          </div>
+          <div class="gallery-card small">
+            <img src="Assets/images/documental3.png" alt="Fotograma documental 6">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-bar">
+    <img src="Assets/images/logo.png" alt="Footer Logo" class="footer-logo">
+    <span>Xipil, derechos reservados</span>
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Volver arriba">Volver arriba</button>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { loadHeader } from './JS/Header.js';
+    document.addEventListener('DOMContentLoaded', loadHeader);
+  </script>
+  <script>
+    const revealSections = document.querySelectorAll('.reveal-section');
+
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      revealSections.forEach((section) => revealObserver.observe(section));
+    } else {
+      revealSections.forEach((section) => section.classList.add('is-visible'));
+    }
+
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+
+      if (!navbar) {
+        return;
+      }
+
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4b9b9c">
+  <meta name="msapplication-navbutton-color" content="#4b9b9c">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
+  <title>Xipil | Mapa</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/Header.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beerslider/dist/BeerSlider.min.css">
+
+  <style>
+    @font-face {
+      font-family: 'Espinosa Nova Bold';
+      src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Espinosa Nova Regular';
+      src: url('fonts/EspinosaNovaPro-Regular.otf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Mukta Regular';
+      src: url('fonts/Mukta-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Mukta Extra Light';
+      src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
+    }
+
+    body {
+      background: linear-gradient(180deg, #f8f6f0 0%, #ffffff 24%, #fbfaf6 100%);
+      color: #142033;
+      font-family: 'Mukta Regular';
+    }
+
+    .reveal-section {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-card,
+    .description-section,
+    .location-section,
+    .archive-section {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(47, 85, 164, 0.08);
+      border-radius: 30px;
+      box-shadow: 0 20px 44px rgba(28, 46, 84, 0.08);
+    }
+
+    .hero-card {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto 2.5rem;
+      padding: 1rem;
+    }
+
+    #map {
+      width: 100%;
+      height: 580px;
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .description-section {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto 2.5rem;
+      padding: 3.5rem clamp(1.4rem, 3vw, 3.2rem);
+      text-align: center;
+    }
+
+    .description-section h2,
+    .archive-section h2 {
+      font-family: 'Espinosa Nova Bold';
+      font-size: clamp(2.4rem, 3vw, 4rem);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.2rem;
+    }
+
+    .description-section p,
+    .archive-section p,
+    .location-copy {
+      width: min(74ch, 100%);
+      margin: 0 auto 1.7rem;
+      font-family: 'Mukta Extra Light';
+      font-size: clamp(1.04rem, 1vw + 0.7rem, 1.22rem);
+      line-height: 1.9;
+      text-align: left;
+      color: #263248;
+    }
+
+    .title-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .mapa-title {
+      font-family: 'Espinosa Nova Bold';
+      font-size: clamp(2.3rem, 3vw, 3.5rem);
+      margin: 0;
+    }
+
+    .gif {
+      position: relative;
+      width: 110px;
+      height: auto;
+      pointer-events: none;
+      opacity: 0.85;
+      flex-shrink: 0;
+    }
+
+    .gif-left {
+      top: 0;
+      left: 0;
+    }
+
+    .gif-right {
+      top: 0;
+      right: 0;
+      width: 94px;
+    }
+
+    .locations-grid {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto 2.5rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    .location-section {
+      padding: 2.25rem;
+    }
+
+    .location-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .location-heading h3 {
+      margin: 0;
+      font-family: 'Espinosa Nova Bold';
+      font-size: clamp(1.8rem, 2vw, 2.5rem);
+      color: #17305e;
+    }
+
+    .location-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(75, 155, 156, 0.12);
+      color: #2f55a4;
+      font-family: 'Mukta Regular';
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .beer-slider {
+      width: min(100%, 980px);
+      margin: 1.5rem auto;
+      overflow: hidden;
+      border-radius: 22px;
+      box-shadow: 0 18px 36px rgba(24, 40, 70, 0.14);
+      display: block;
+    }
+
+    .beer-slider img,
+    .beer-slider .beer-reveal img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-collage {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .gallery-collage img,
+    .gallery-item img,
+    .gallery-item-row img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(24, 40, 70, 0.12);
+    }
+
+    .gallery-collage img {
+      aspect-ratio: 1 / 1;
+    }
+
+    .archive-section {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto 2rem;
+      padding: 3rem clamp(1.4rem, 3vw, 3rem);
+      text-align: center;
+    }
+
+    .gallery-vertical {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto 2.8rem;
+      display: grid;
+      gap: 14px;
+    }
+
+    .gallery-item-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .footer-bar {
+      background: linear-gradient(135deg, #2f55a4, #27498e);
+      color: white;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 2rem;
+    }
+
+    .footer-logo {
+      width: 50px;
+      height: auto;
+    }
+
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #fff5d6, #ffffff);
+      color: #23417d;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: 'Mukta Regular';
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 10px 24px rgba(12, 30, 74, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .back-to-top::before {
+      content: "\2191";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #2f55a4;
+      color: #ffffff;
+      font-size: 1rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px rgba(12, 30, 74, 0.24);
+      background: linear-gradient(135deg, #ffffff, #f7e8a6);
+    }
+
+    @media (max-width: 992px) {
+      #map {
+        height: 500px;
+      }
+
+      .beer-slider img,
+      .beer-slider .beer-reveal img {
+        height: 430px;
+      }
+
+      .description-section,
+      .archive-section {
+        width: calc(100% - 32px);
+        padding: 2.6rem 1.4rem;
+      }
+
+      .location-section {
+        padding: 1.7rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-card {
+        width: calc(100% - 24px);
+        padding: 0.75rem;
+        border-radius: 24px;
+      }
+
+      #map {
+        height: 400px;
+        border-radius: 18px;
+      }
+
+      .description-section,
+      .archive-section {
+        width: calc(100% - 24px);
+        margin-bottom: 1.4rem;
+        border-radius: 24px;
+      }
+
+      .description-section p,
+      .archive-section p,
+      .location-copy {
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+
+      .location-heading {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .gallery-collage {
+        grid-template-columns: 1fr;
+      }
+
+      .beer-slider img,
+      .beer-slider .beer-reveal img {
+        height: 320px;
+      }
+
+      .gallery-item-row {
+        grid-template-columns: 1fr;
+      }
+
+      .gif {
+        max-width: 56px;
+      }
+
+      .gif-left {
+        left: 0;
+        top: 0;
+      }
+
+      .gif-right {
+        right: 0;
+        top: 0;
+      }
+
+      .footer-bar {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="hero-card reveal-section">
+    <div id="map"></div>
+  </section>
+
+    <section class="description-section reveal-section">
+      <div class="title-container">
+      <img src="Assets/images/gifs/hoja.gif" alt="Decoracion izquierda" class="gif gif-left">
+      <h2 class="mapa-title">Mapa Interactivo</h2>
+      <img src="Assets/images/gifs/arbol.gif" alt="Decoracion derecha" class="gif gif-right">
+      </div>
+    <p>
+      Explora los lugares emblematicos de Xoco desde una lectura comunitaria. Cada punto del mapa conecta con memorias, transformaciones urbanas y registros fotograficos que ayudan a entender como el territorio ha cambiado con el tiempo.
+    </p>
+  </section>
+
+  <div class="locations-grid">
+    <section id="punto1" class="location-section reveal-section">
+      <div class="location-heading">
+        <h3>Puente de Xoco</h3>
+        <span class="location-tag">Memoria urbana</span>
+      </div>
+      <p class="location-copy">
+        Este punto reune una comparativa entre el paisaje anterior y el presente, junto con fotografias que muestran la manera en que el entorno cotidiano del pueblo ha sido transformado.
+      </p>
+      <div class="beer-slider" data-beer-label="Antes">
+        <img src="Assets/images/puentedexoco.jpg" alt="Puente de Xoco antes">
+        <div class="beer-reveal" data-beer-label="Ahora">
+          <img src="Assets/images/puentedexocoahora.jpeg" alt="Puente de Xoco ahora">
+        </div>
+      </div>
+      
+    </section>
+
+    <section id="punto2" class="location-section reveal-section">
+      <div class="location-heading">
+        <h3>Torre Mitikah</h3>
+        <span class="location-tag">Cambio reciente</span>
+      </div>
+      <p class="location-copy">
+        La comparativa visual permite reconocer el impacto de los megaproyectos sobre la escala barrial, los recorridos y la percepcion del paisaje en San Sebastian Xoco.
+      </p>
+      <div class="beer-slider" data-beer-label="Antes">
+        <img src="Assets/images/torreantes.png" alt="Torre Mitikah antes">
+        <div class="beer-reveal" data-beer-label="Ahora">
+          <img src="Assets/images/torredespues.png" alt="Torre Mitikah ahora">
+        </div>
+      </div>
+    
+    </section>
+
+    <section id="punto3" class="location-section reveal-section">
+      <div class="location-heading">
+        <h3>Ladrilleria</h3>
+        <span class="location-tag">Trabajo y territorio</span>
+      </div>
+      <p class="location-copy">
+        Esta seccion recupera rastros materiales y visuales que ayudan a leer la historia productiva del lugar y su relacion con los procesos de urbanizacion posteriores.
+      </p>
+      <div class="beer-slider" data-beer-label="Antes">
+        <img src="Assets/images/ladrilleraantes.png" alt="Ladrilleria antes">
+        <div class="beer-reveal" data-beer-label="Ahora">
+          <img src="Assets/images/ladrilleradespues.png" alt="Ladrilleria ahora">
+        </div>
+      </div>
+     
+    </section>
+
+    <section id="punto4" class="location-section reveal-section">
+      <div class="location-heading">
+        <h3>Hacienda de Guadalupe</h3>
+        <span class="location-tag">Patrimonio local</span>
+      </div>
+      <p class="location-copy">
+        Las imagenes reunidas aqui permiten observar como ciertos espacios de referencia colectiva siguen actuando como nodos de memoria y vida comunitaria.
+      </p>
+      <div class="beer-slider" data-beer-label="Antes">
+        <img src="Assets/images/haciendaantes.png" alt="Hacienda de Guadalupe antes">
+        <div class="beer-reveal" data-beer-label="Ahora">
+          <img src="Assets/images/haciendadespues.png" alt="Hacienda de Guadalupe ahora">
+        </div>
+      </div>
+      
+    </section>
+  </div>
+
+  <section class="archive-section reveal-section" id="archivo">
+    <div class="title-container">
+      <img src="Assets/images/gifs/hoja.gif" alt="Decoracion izquierda" class="gif gif-left">
+      <h2 class="mapa-title">Archivo fotografico</h2>
+      <img src="Assets/images/gifs/arbol.gif" alt="Decoracion derecha" class="gif gif-right">
+    </div>
+    <p>
+      Esta galeria amplia la lectura del mapa con un recorrido visual por escenas, rastros y fragmentos del pueblo. La idea es que el archivo complemente la experiencia interactiva con una observacion mas pausada.
+    </p>
+  </section>
+
+  <section class="gallery-vertical reveal-section">
+    <div class="gallery-item"><img src="Assets/images/archivo1.png" alt="Foto 1"></div>
+    <div class="gallery-item"><img src="Assets/images/archivo2.png" alt="Foto 2"></div>
+    <div class="gallery-item-row">
+      <img src="Assets/images/archivo3.png" alt="Foto 3A">
+      <img src="Assets/images/archivo4.png" alt="Foto 3B">
+    </div>
+    <div class="gallery-item"><img src="Assets/images/archivo5.png" alt="Foto 4"></div>
+    <div class="gallery-item"><img src="Assets/images/archivo6.png" alt="Foto 5"></div>
+    <div class="gallery-item"><img src="Assets/images/archivo7.png" alt="Foto 6"></div>
+  </section>
+
+  <footer class="footer-bar">
+    <img src="Assets/images/logo.png" alt="Footer Logo" class="footer-logo">
+    <span>Xipil, derechos reservados</span>
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Volver arriba">Volver arriba</button>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/beerslider/dist/BeerSlider.min.js"></script>
+  <script type="module">
+    import { loadHeader } from './JS/Header.js';
+    document.addEventListener('DOMContentLoaded', loadHeader);
+  </script>
+  <script>
+    var map = L.map('map', {
+      center: [19.3619, -99.1665],
+      zoom: 16,
+      minZoom: 16,
+      maxZoom: 18,
+      maxBounds: [[19.3590, -99.1700], [19.3650, -99.1630]],
+      maxBoundsViscosity: 1.0
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    var points = [
+      { name: "Puente de Xoco", lat: 19.3617, lon: -99.1645, id: "punto1" },
+      { name: "Torre Mitikah", lat: 19.3622, lon: -99.1650, id: "punto2" },
+      { name: "Ladrilleria", lat: 19.3605, lon: -99.1642, id: "punto3" },
+      { name: "Hacienda de Guadalupe", lat: 19.3610, lon: -99.1675, id: "punto4" }
+    ];
+
+    points.forEach(point => {
+      L.marker([point.lat, point.lon]).addTo(map)
+        .bindPopup(`<b>${point.name}</b><br>Haz clic para ver mas`)
+        .on('click', function () {
+          const section = document.getElementById(point.id);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.beer-slider').forEach(el => {
+        new BeerSlider(el);
+      });
+    });
+
+    const revealSections = document.querySelectorAll('.reveal-section');
+
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealSections.forEach((section) => revealObserver.observe(section));
+    } else {
+      revealSections.forEach((section) => section.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4b9b9c">
+    <meta name="msapplication-navbutton-color" content="#4b9b9c">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#4b9b9c">
+    <title>Xipil | Entregables</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/Header.css">
+
+    <style>
+        @font-face {
+            font-family: 'Espinosa Nova Bold';
+            src: url('fonts/EspinosaNovaPro-Bold.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Espinosa Nova Regular';
+            src: url('fonts/EspinosaNovaPro-Regular.otf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Mukta Regular';
+            src: url('fonts/Mukta-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Mukta Extra Light';
+            src: url('fonts/Mukta-ExtraLight.ttf') format('truetype');
+        }
+
+        body {
+            background: linear-gradient(180deg, #f8f6f0 0%, #ffffff 24%, #fbfaf6 100%);
+            color: #142033;
+            font-family: 'Mukta Regular';
+        }
+
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .archivo-hero {
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto 2.6rem;
+            padding: 3.4rem clamp(1.4rem, 3vw, 3.2rem);
+            text-align: center;
+            background: transparent;
+        }
+
+        .archivo-hero h1 {
+            font-family: 'Espinosa Nova Bold';
+            font-size: clamp(2.5rem, 3.5vw, 4.6rem);
+            line-height: 1.02;
+            margin-bottom: 1rem;
+            color: #000000;
+        }
+
+        .archivo-hero p {
+            width: min(74ch, 100%);
+            margin: 0 auto;
+            font-family: 'Mukta Extra Light';
+            font-size: clamp(1.04rem, 1vw + 0.7rem, 1.22rem);
+            line-height: 1.9;
+            color: #263248;
+        }
+
+        .entregables-grid {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto 2.8rem;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .entregable-card {
+            position: relative;
+            padding: 1.4rem 0;
+        }
+
+        .entregable-shell {
+            display: grid;
+            grid-template-columns: minmax(320px, 0.95fr) minmax(340px, 1.05fr);
+            align-items: stretch;
+            gap: 2rem;
+        }
+
+        .entregable-media {
+            position: relative;
+            min-height: 100%;
+            overflow: visible;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.2rem 1.4rem 0.6rem;
+        }
+
+        .entregable-media::after {
+            content: "";
+            position: absolute;
+            inset: 2rem 1.2rem 4.6rem 1.2rem;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 30%);
+            pointer-events: none;
+        }
+
+        .entregable-media::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .entregable-media img {
+            width: min(100%, 420px);
+            height: auto;
+            min-height: 0;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            display: block;
+            transform: rotate(-4deg);
+            transition: transform 0.45s ease;
+            border: 14px solid #fffdf8;
+            border-bottom-width: 62px;
+            box-shadow:
+                0 28px 42px rgba(28, 46, 84, 0.2),
+                0 8px 12px rgba(28, 46, 84, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .entregable-card:hover .entregable-media img {
+            transform: rotate(-2deg) translateY(-6px);
+        }
+
+        .entregable-badge {
+            position: static;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1.2rem;
+            padding: 0;
+            background: transparent;
+            border: none;
+            color: #17305e;
+            font-family: 'Espinosa Nova Bold';
+            font-size: 1.1rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .entregable-card:nth-of-type(even) .entregable-media img {
+            transform: rotate(4deg);
+        }
+
+        .entregable-card:nth-of-type(even):hover .entregable-media img {
+            transform: rotate(2deg) translateY(-6px);
+        }
+
+        .entregable-content {
+            padding: 1.2rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.25rem;
+            background: transparent;
+        }
+
+        .entregable-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(75, 155, 156, 0.12);
+            color: #2f55a4;
+            font-family: 'Mukta Regular';
+            font-size: 0.88rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .entregable-content h2 {
+            font-family: 'Espinosa Nova Bold';
+            font-size: clamp(2rem, 2.4vw, 3.2rem);
+            line-height: 1.04;
+            margin: 0;
+            color: #000000;
+        }
+
+        .entregable-description {
+            font-family: 'Mukta Extra Light';
+            font-size: 1.12rem;
+            line-height: 1.85;
+            color: #263248;
+            margin: 0;
+        }
+
+        .entregable-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .entregable-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.55rem 0.85rem;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid rgba(47, 85, 164, 0.08);
+            color: #24437f;
+            font-family: 'Mukta Regular';
+            font-size: 0.95rem;
+            box-shadow: 0 10px 20px rgba(27, 44, 84, 0.06);
+        }
+
+        .entregable-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .entregable-gallery img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 12px 28px rgba(24, 40, 70, 0.12);
+        }
+
+        .entregable-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .entregable-note {
+            font-family: 'Mukta Extra Light';
+            font-size: 1rem;
+            color: #44516b;
+            margin: 0;
+        }
+
+        .entregable-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.3rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #2f55a4, #4b9b9c);
+            color: white !important;
+            text-decoration: none;
+            font-family: 'Mukta Regular';
+            font-size: 1rem;
+            letter-spacing: 0.04em;
+            box-shadow: 0 14px 26px rgba(31, 58, 109, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .entregable-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(31, 58, 109, 0.24);
+        }
+
+        .footer-bar {
+            background: linear-gradient(135deg, #2f55a4, #27498e);
+            color: white;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 2rem;
+        }
+
+        .footer-logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #fff5d6, #ffffff);
+            color: #23417d;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            padding: 10px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: 'Mukta Regular';
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            box-shadow: 0 10px 24px rgba(12, 30, 74, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        .back-to-top::before {
+            content: "\2191";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #2f55a4;
+            color: #ffffff;
+            font-size: 1rem;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 30px rgba(12, 30, 74, 0.24);
+            background: linear-gradient(135deg, #ffffff, #f7e8a6);
+        }
+
+        @media (max-width: 992px) {
+            .archivo-hero {
+                width: calc(100% - 32px);
+                padding: 2.7rem 1.4rem;
+            }
+
+            .entregable-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .entregable-media img {
+                width: min(100%, 360px);
+            }
+
+            .entregable-badge {
+                margin-top: 1rem;
+                font-size: 1rem;
+            }
+
+            .entregable-card {
+                padding: 0.5rem 0 1.25rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .archivo-hero,
+            .entregables-grid {
+                width: calc(100% - 24px);
+            }
+
+            .entregable-content {
+                padding: 1.4rem;
+            }
+
+            .entregable-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .entregable-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-container"></div>
+
+    <section class="archivo-hero reveal-section">
+        <h1>Repertorio de Entregables</h1>
+        <p>
+            Este apartado reúne las piezas desarrolladas dentro del proyecto Xipil. Cada entregable propone una forma distinta de acercarse a la memoria, la identidad y la resistencia cultural de San Sebastián Xoco.
+        </p>
+    </section>
+
+    <section class="entregables-grid">
+        <article class="entregable-card reveal-section">
+            <div class="entregable-shell">
+                <div class="entregable-media">
+                    <span class="entregable-badge">Entregable 1</span>
+                    <img src="Assets/images/mural2.png" alt="Mural de Xoco">
+                </div>
+                <div class="entregable-content">
+                    <span class="entregable-eyebrow">Intervención visual</span>
+                    <h2>Mural</h2>
+                    <p class="entregable-description">
+                        Una pieza gráfica que traduce el aspecto festivo, simbólico y comunitario de San Sebastián Xoco a un lenguaje visual expandido. El mural funciona como memoria visible del territorio y como gesto de afirmación cultural.
+                    </p>
+                    <div class="entregable-highlights">
+                        <span class="entregable-chip">Fiesta y comunidad</span>
+                        <span class="entregable-chip">Símbolos locales</span>
+                        <span class="entregable-chip">Memoria gráfica</span>
+                    </div>
+                    <div class="entregable-gallery">
+                        <img src="Assets/images/mural1.png" alt="Proceso del mural 1">
+                        <img src="Assets/images/mural3.png" alt="Proceso del mural 2">
+                        <img src="Assets/images/mural4.png" alt="Proceso del mural 3">
+                    </div>
+                    <div class="entregable-actions">
+                        <p class="entregable-note">Explora la galería y el desarrollo visual completo del mural.</p>
+                        <a href="entregable1.html" class="entregable-link">Ver entregable</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article class="entregable-card reveal-section">
+            <div class="entregable-shell">
+                <div class="entregable-media">
+                    <span class="entregable-badge">Entregable 2</span>
+                    <img src="Assets/images/documental1.JPG" alt="Documental de Xoco">
+                </div>
+                <div class="entregable-content">
+                    <span class="entregable-eyebrow">Registro audiovisual</span>
+                    <h2>Documental</h2>
+                    <p class="entregable-description">
+                        Un recorrido audiovisual por la lucha, la vida cotidiana y la resistencia del pueblo. El documental recoge voces, imágenes y momentos que permiten comprender el presente de Xoco desde su propia experiencia comunitaria.
+                    </p>
+                    <div class="entregable-highlights">
+                        <span class="entregable-chip">Testimonio local</span>
+                        <span class="entregable-chip">Resistencia cultural</span>
+                        <span class="entregable-chip">Memoria viva</span>
+                    </div>
+                    <div class="entregable-gallery">
+                        <img src="Assets/images/documental2.png" alt="Documental fotograma 1">
+                        <img src="Assets/images/documental3.png" alt="Documental fotograma 2">
+                        <img src="Assets/images/documental4.png" alt="Documental fotograma 3">
+                    </div>
+                    <div class="entregable-actions">
+                        <p class="entregable-note">Consulta el material visual y el desarrollo del documental completo.</p>
+                        <a href="entregable2.html" class="entregable-link">Ver entregable</a>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <footer class="footer-bar">
+        <img src="Assets/images/logo.png" alt="Footer Logo" class="footer-logo">
+        <span>Xipil, derechos reservados</span>
+        <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" aria-label="Volver arriba">Volver arriba</button>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { loadHeader } from './JS/Header.js';
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+    <script>
+        const revealSections = document.querySelectorAll('.reveal-section');
+
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.18 });
+
+            revealSections.forEach((section) => revealObserver.observe(section));
+        } else {
+            revealSections.forEach((section) => section.classList.add('is-visible'));
+        }
+
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+
+            if (!navbar) {
+                return;
+            }
+
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+</body>
+</html>
